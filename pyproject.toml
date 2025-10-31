@@ -1,0 +1,37 @@
+[project]
+name = "cost-analysis"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "opensearch-py",
+    "boto3",
+    "botocore",
+    "watchdog",
+    "jsonschema",
+    "retrying",
+    "strands-agents",
+    "strands-agents-tools",
+    "langchain-core",
+    "langchain-aws",
+    "zmq",
+    "aws-cdk-lib",
+    "constructs",
+    "python-dotenv",
+    "bedrock-agentcore",
+    "bedrock-agentcore-starter-toolkit",
+    "opentelemetry-instrumentation",
+    "opentelemetry-api",
+    "langchain",
+    "langgraph",
+    "fuzzywuzzy",
+    "scikit-learn",
+    "pyyaml",
+    "langchain-community",
+    "streamlit",
+    "pyjwt[crypto]>=2.8.0",
+    "langchain-openai>=1.0.1",
+    "deepagents>=0.2.4",
+    "tavily-python>=0.7.12",
+]
