@@ -1,0 +1,5 @@
+include README.md
+include LICENSE
+recursive-include ml_cost_analysis *.yaml
+recursive-include ml_cost_analysis/system_prompts *.txt
+recursive-include ml_cost_analysis/tools *.py

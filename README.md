@@ -1,56 +1,150 @@
-# AWS Cost Analysis Deep Research Agent
+# AWS ML Workload Cost Optimization Agent
 
-A deep research agent powered by Claude 3.7 Sonnet on Amazon Bedrock that analyzes AWS cost expenditure and provides optimization recommendations. The agent uses multiple tools including CloudWatch monitoring, log analysis, and internet search to perform comprehensive cost analysis across AWS accounts.
+A CLI-powered deep research agent that analyzes machine learning workload costs in your AWS account and provides optimization recommendations. Built with Claude 3.7 Sonnet (via Amazon Bedrock or OpenAI), the agent specializes in SageMaker training jobs, inference endpoints, Amazon Bedrock usage, and ML data storage optimization. It uses multiple tools including ML service monitoring, CloudWatch analysis, cost reporting, and internet search to perform comprehensive ML cost analysis across AWS accounts.
+
+## Quick Start
+
+Install the package and start analyzing your AWS ML costs in minutes:
+
+```bash
+# Install from PyPI
+pip install ml-cost-optimize
+
+# Set required environment variables
+export TAVILY_API_KEY=your_tavily_key
+export AWS_PROFILE=your_aws_profile
+
+# Run your first cost analysis
+ml-cost-optimize --query "Analyze my SageMaker costs and suggest optimizations"
+```
 
 ## Prerequisites
 
 - Python 3.12+
-- AWS credentials configured with appropriate permissions
-- Access to Amazon Bedrock with Claude 3.7 Sonnet model (`us.anthropic.claude-3-7-sonnet-20250219-v1:0`)
+- AWS credentials configured with appropriate permissions (via AWS CLI or environment variables)
+- Access to either:
+  - Amazon Bedrock with Claude 3.7 Sonnet model (`us.anthropic.claude-3-7-sonnet-20250219-v1:0`), OR
+  - OpenAI API with GPT-4 access
 - [Tavily API](https://tavily.com/) account and API key for internet search
 - [LangSmith](https://smith.langchain.com/) account for tracing (optional but recommended)
 
 ### Required AWS Permissions
 
 The agent requires the following AWS permissions:
-- `bedrock:InvokeModel` - To run Claude models
-- `cloudwatch:ListDashboards` - To list CloudWatch dashboards
-- `cloudwatch:GetDashboard` - To retrieve dashboard details
-- `cloudwatch:DescribeAlarms` - To check alarm status
-- `logs:DescribeLogGroups` - To list log groups
-- `logs:FilterLogEvents` - To retrieve and analyze logs
-- `sts:AssumeRole` - For cross-account access (if needed)
+- **Amazon Bedrock**:
+  - `bedrock:InvokeModel` - To run Claude models
+  - `bedrock:GetModelInvocationLoggingConfiguration` - To analyze Bedrock usage
+- **SageMaker**:
+  - `sagemaker:ListTrainingJobs` - To list training jobs
+  - `sagemaker:DescribeTrainingJob` - To get training job details
+  - `sagemaker:ListEndpoints` - To list inference endpoints
+  - `sagemaker:DescribeEndpoint` - To get endpoint details
+  - `sagemaker:DescribeEndpointConfig` - To analyze endpoint configurations
+- **CloudWatch & Logs**:
+  - `cloudwatch:ListDashboards` - To list CloudWatch dashboards
+  - `cloudwatch:GetDashboard` - To retrieve dashboard details
+  - `cloudwatch:DescribeAlarms` - To check alarm status
+  - `cloudwatch:GetMetricStatistics` - To retrieve metrics for ML services
+  - `logs:DescribeLogGroups` - To list log groups
+  - `logs:FilterLogEvents` - To retrieve and analyze logs
+- **Cost Explorer**:
+  - `ce:GetCostAndUsage` - To analyze ML service costs
+- **S3**:
+  - `s3:ListBucket` - To identify ML data storage
+  - `s3:GetBucketLocation` - To analyze storage locations
+- **IAM**:
+  - `sts:AssumeRole` - For cross-account access (if needed)
 
 ## Features
 
 - **Deep Research Capabilities**: Uses the [deepagents](https://github.com/anthropics/deepagents) library for multi-step reasoning
-- **CloudWatch Integration**: Monitors dashboards, logs, alarms, and metrics
-- **Cross-Account Support**: Analyze costs across multiple AWS accounts
-- **Internet Search**: Uses Tavily to research AWS cost optimization best practices
-- **Log Analysis**: Automatically detects errors, warnings, and anomalies
-- **Service-Specific Monitoring**: Supports Lambda, EC2, RDS, EKS, API Gateway, Amazon Bedrock, and more
+- **ML-Specific Cost Analysis**:
+  - SageMaker training job cost analysis and optimization
+  - Inference endpoint utilization and cost monitoring
+  - Amazon Bedrock token usage and pricing analysis
+  - ML data storage (S3) cost optimization
+- **CloudWatch Integration**: Monitors ML service metrics, logs, alarms, and dashboards
+- **Cross-Account Support**: Analyze ML costs across multiple AWS accounts
+- **Internet Search**: Research latest ML optimization techniques and AWS best practices
+- **Cost Recommendations**: Get actionable recommendations for ML workload optimization
 - **Extended Timeout**: Configured with 200-minute timeout for long-running deep agent operations
 
 ## Installation
 
+### Option 1: Install from PyPI (Recommended)
+
+The easiest way to install the package:
+
 ```bash
-# Install dependencies using uv
+# Install the package
+pip install ml-cost-optimize
+
+# Verify installation
+ml-cost-optimize --help
+```
+
+### Option 2: Install from Source
+
+For development or to get the latest features:
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd cost-analysis
+
+# Install in editable mode
+pip install -e .
+
+# Or install with development dependencies
+pip install -e ".[dev]"
+```
+
+### Option 3: Using uv (Alternative Package Manager)
+
+```bash
+# Install dependencies
 uv sync
+
+# The package will be available in the virtual environment
 ```
 
 ## Configuration
 
-### Environment Variables
+### Option 1: Environment Variables (Recommended)
+
+Set up environment variables for your credentials:
+
+```bash
+# Required: Tavily API Key for internet search
+export TAVILY_API_KEY=your_tavily_api_key_here
+
+# AWS credentials (if not using AWS CLI default profile)
+export AWS_PROFILE=your_profile_name
+export AWS_REGION=us-east-1
+
+# Optional: For OpenAI provider
+export OPENAI_API_KEY=your_openai_api_key
+
+# Optional: LangSmith for tracing
+export LANGSMITH_API_KEY=your_langsmith_api_key
+export LANGSMITH_TRACING=true
+export LANGCHAIN_PROJECT=aws-cost-analysis
+```
+
+### Option 2: Using .env File
 
 Create a `.env` file in the project root:
 
 ```bash
 # Required: Tavily API Key for internet search
-TAVILY_APY_KEY=your_tavily_api_key_here
+TAVILY_API_KEY=your_tavily_api_key_here
+
+# Optional: OpenAI API key (if using OpenAI provider)
+OPENAI_API_KEY=your_openai_api_key
 
 # Optional: LangSmith for tracing
-LANGCHAIN_API_KEY=your_langsmith_api_key
-LANGCHAIN_TRACING_V2=true
+LANGSMITH_API_KEY=your_langsmith_api_key
+LANGSMITH_TRACING=true
 LANGCHAIN_PROJECT=aws-cost-analysis
 
 # AWS credentials (if not using AWS CLI default profile)
@@ -78,154 +172,105 @@ model_information:
 
 ### Basic Usage
 
+After installation, you can run the CLI tool from anywhere:
+
 ```bash
-# Run with default query
-uv run python long-running-deep-agent.py
+# Set your API key
+export TAVILY_API_KEY=your_key_here
+
+# Run a cost analysis query
+ml-cost-optimize --query "Analyze my SageMaker costs and suggest optimizations"
 ```
 
-### Custom Queries
+### CLI Options
 
-Modify the `query` variable in the `main()` function in `long-running-deep-agent.py`:
-
-```python
-def main():
-    query = "Your custom cost analysis query here"
-    result = run_deep_agent_query(query)
+```bash
+ml-cost-optimize --help
 ```
+
+#### Required Arguments
+
+- `--query`: The cost analysis query to run
+
+#### API Keys and Credentials
+
+- `--tavily-api-key`: Tavily API key (or set `TAVILY_API_KEY` env var)
+- `--openai-api-key`: OpenAI API key if using OpenAI provider (or set `OPENAI_API_KEY` env var)
+- `--aws-profile`: AWS profile name (or set `AWS_PROFILE` env var)
+- `--aws-region`: AWS region (or set `AWS_REGION` env var)
+
+#### Model Configuration
+
+- `--provider`: Choose `bedrock` or `openai` (defaults to config.yaml setting)
+- `--config`: Path to configuration file (default: `config.yaml`)
+
+#### Output and Behavior
+
+- `--output-file`: Save agent response to file
+- `--debug`: Enable debug logging
+- `--max-retries`: Maximum retries for tool errors (default: 3)
+- `--root-dir`: Root directory for filesystem backend (default: current directory)
+
+#### LangSmith Tracing
+
+- `--langsmith-api-key`: LangSmith API key (or set `LANGSMITH_API_KEY` env var)
+- `--langsmith-project`: LangSmith project name (or set `LANGCHAIN_PROJECT` env var)
+
+### Example Usage
+
+#### Basic Analysis with Environment Variables
+
+```bash
+# Set credentials
+export TAVILY_API_KEY=tvly-xxx
+export AWS_PROFILE=my-profile
+
+# Run analysis
+ml-cost-optimize --query "Analyze my ML workload costs and provide recommendations"
+```
+
+#### Using CLI Arguments
+
+```bash
+ml-cost-optimize \
+  --tavily-api-key tvly-xxx \
+  --aws-profile my-profile \
+  --query "Review SageMaker endpoint costs and suggest optimizations"
+```
+
+#### Using OpenAI Instead of Bedrock
+
+```bash
+export TAVILY_API_KEY=tvly-xxx
+export OPENAI_API_KEY=sk-xxx
+
+ml-cost-optimize \
+  --provider openai \
+  --query "Analyze Amazon Bedrock usage and costs"
+```
+
+#### Save Output to File
+
+```bash
+ml-cost-optimize \
+  --query "Comprehensive ML cost analysis" \
+  --output-file analysis_report.json
+```
+
 
 ### Example Queries
 
-```python
-# Analyze overall cost expenditure
-query = "Analyze cost expenditure across my account and create a thorough report on optimization techniques."
-
-# Focus on specific service
-query = "What are the primary cost drivers for Lambda functions in my account? Provide optimization recommendations."
-
-# Cross-account analysis
-query = "Compare cost patterns between production and staging accounts and identify opportunities for consolidation."
-
-# Service-specific investigation
-query = "Investigate high costs in Amazon Bedrock usage and suggest ways to optimize model inference calls."
-```
-
-## Available Tools
-
-The agent has access to the following tools:
-
-### CloudWatch Monitoring Tools
-
-- `list_cloudwatch_dashboards` - List all CloudWatch dashboards
-- `get_dashboard_summary` - Get detailed dashboard configuration
-- `list_log_groups` - List available log groups
-- `fetch_cloudwatch_logs_for_service` - Retrieve logs for specific services
-- `analyze_log_group` - Analyze log patterns and error rates
-- `get_cloudwatch_alarms_for_service` - Check alarm status by service
-- `setup_cross_account_access` - Configure and verify cross-account access
-
-### Internet Search
-
-- `internet_search` - Search the web for AWS cost optimization best practices and documentation
-
-## Cross-Account Access
-
-To analyze costs across multiple AWS accounts:
-
-1. **Setup IAM Role**: Create an IAM role in the target account with CloudWatch and Logs read permissions
-
-2. **Configure Trust Relationship**: Allow your source account to assume the role:
-   ```json
-   {
-     "Version": "2012-10-17",
-     "Statement": [{
-       "Effect": "Allow",
-       "Principal": {
-         "AWS": "arn:aws:iam::SOURCE_ACCOUNT_ID:root"
-       },
-       "Action": "sts:AssumeRole"
-     }]
-   }
-   ```
-
-3. **Use in Queries**: The agent will automatically handle cross-account access when needed
-
-## Architecture
-
-The agent uses a multi-step reasoning approach:
-
-1. **Query Understanding**: Analyzes the user's cost optimization question
-2. **Tool Selection**: Chooses appropriate tools (CloudWatch, logs, search)
-3. **Data Gathering**: Collects metrics, logs, and external knowledge
-4. **Analysis**: Identifies patterns, anomalies, and cost drivers
-5. **Recommendations**: Provides actionable optimization strategies
-
-## Performance Considerations
-
-**Warning**: Deep research queries may take 10-15+ minutes depending on:
-- Number of AWS services to analyze
-- Volume of CloudWatch logs to process
-- Complexity of the cost analysis
-- Number of cross-account operations
-
-The agent is configured with a 200-minute timeout to accommodate long-running operations.
-
-## Development Workflow
-
-### Code Quality Checks
-
-Run all checks before committing:
-
+#### Comprehensive ML Workload Analysis
 ```bash
-# Format and lint
-uv run ruff check --fix . && uv run ruff format .
-
-# Security scanning
-uv run bandit -r tools/ *.py
-
-# Type checking
-uv run mypy *.py tools/
-
-# Run all checks in one command
-uv run ruff check --fix . && uv run ruff format . && uv run bandit -r tools/ *.py && uv run mypy *.py tools/
+ml-cost-optimize --query "Analyze machine learning workload costs in my AWS account and create a comprehensive optimization report. Focus on SageMaker training jobs, endpoints, Bedrock usage, and ML data storage."
 ```
 
-### Adding Development Dependencies
-
+#### SageMaker Training Optimization
 ```bash
-uv add --dev ruff mypy bandit pytest pytest-cov
+ml-cost-optimize --query "Analyze my SageMaker training jobs from the last 30 days. Identify opportunities to use Spot instances and optimize instance types."
 ```
 
-## Troubleshooting
-
-### Connection Timeouts
-
-If you experience timeouts:
-- The default timeout is 200 minutes (12000 seconds)
-- Check CloudWatch logs for service availability
-- Verify network connectivity to Amazon Bedrock
-
-### Permission Errors
-
-If you get AWS permission errors:
-- Verify your IAM role has required permissions
-- Check AWS CLI configuration: `aws sts get-caller-identity`
-- For cross-account access, verify trust relationships
-
-### Model Not Available
-
-If Claude 3.7 Sonnet is not available:
-- Ensure you have access to Amazon Bedrock in your region
-- Verify model access in the Bedrock console
-- Check the model ID in `config.yaml` matches your region
-
-## References
-
-- [Amazon Bedrock Documentation](https://docs.aws.amazon.com/bedrock/)
-- [deepagents Library](https://github.com/anthropics/deepagents)
-- [Tavily API Documentation](https://docs.tavily.com/)
-- [AWS CloudWatch Documentation](https://docs.aws.amazon.com/cloudwatch/)
-- [AWS Cost Optimization Best Practices](https://aws.amazon.com/pricing/cost-optimization/)
-
-## License
-
-See LICENSE file for details.
+#### Endpoint Cost Reduction
+```bash
+ml-cost-optimize --query "Review all active SageMaker endpoints, check their utilization, and recommend which endpoints should use auto-scaling or be shut down."
+```

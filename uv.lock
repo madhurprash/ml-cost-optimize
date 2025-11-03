@@ -1,5 +1,5 @@
 version = 1
-revision = 2
+revision = 3
 requires-python = ">=3.12"
 resolution-markers = [
     "python_full_version >= '3.13'",
@@ -562,75 +562,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/46/84/f608a0a71a05a476b2f1761ab8f3f776677d39f7996ecf1092a1ce741a7c/constructs-10.4.2.tar.gz", hash = "sha256:ce54724360fffe10bab27d8a081844eb81f5ace7d7c62c84b719c49f164d5307", size = 65434, upload-time = "2024-10-14T12:58:02.822Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/f2/d9/c5e7458f323bf063a9a54200742f2494e2ce3c7c6873e0ff80f88033c75f/constructs-10.4.2-py3-none-any.whl", hash = "sha256:1f0f59b004edebfde0f826340698b8c34611f57848139b7954904c61645f13c1", size = 63509, upload-time = "2024-10-14T12:57:59.828Z" },
-]
-
-[[package]]
-name = "cost-analysis"
-version = "0.1.0"
-source = { virtual = "." }
-dependencies = [
-    { name = "aws-cdk-lib" },
-    { name = "bedrock-agentcore" },
-    { name = "bedrock-agentcore-starter-toolkit" },
-    { name = "boto3" },
-    { name = "botocore" },
-    { name = "constructs" },
-    { name = "deepagents" },
-    { name = "fuzzywuzzy" },
-    { name = "jsonschema" },
-    { name = "langchain" },
-    { name = "langchain-aws" },
-    { name = "langchain-community" },
-    { name = "langchain-core" },
-    { name = "langchain-openai" },
-    { name = "langgraph" },
-    { name = "opensearch-py" },
-    { name = "opentelemetry-api" },
-    { name = "opentelemetry-instrumentation" },
-    { name = "pyjwt", extra = ["crypto"] },
-    { name = "python-dotenv" },
-    { name = "pyyaml" },
-    { name = "retrying" },
-    { name = "scikit-learn" },
-    { name = "strands-agents" },
-    { name = "strands-agents-tools" },
-    { name = "streamlit" },
-    { name = "tavily-python" },
-    { name = "watchdog" },
-    { name = "zmq" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "aws-cdk-lib" },
-    { name = "bedrock-agentcore" },
-    { name = "bedrock-agentcore-starter-toolkit" },
-    { name = "boto3" },
-    { name = "botocore" },
-    { name = "constructs" },
-    { name = "deepagents", specifier = ">=0.2.4" },
-    { name = "fuzzywuzzy" },
-    { name = "jsonschema" },
-    { name = "langchain" },
-    { name = "langchain-aws" },
-    { name = "langchain-community" },
-    { name = "langchain-core" },
-    { name = "langchain-openai", specifier = ">=1.0.1" },
-    { name = "langgraph" },
-    { name = "opensearch-py" },
-    { name = "opentelemetry-api" },
-    { name = "opentelemetry-instrumentation" },
-    { name = "pyjwt", extras = ["crypto"], specifier = ">=2.8.0" },
-    { name = "python-dotenv" },
-    { name = "pyyaml" },
-    { name = "retrying" },
-    { name = "scikit-learn" },
-    { name = "strands-agents" },
-    { name = "strands-agents-tools" },
-    { name = "streamlit" },
-    { name = "tavily-python", specifier = ">=0.7.12" },
-    { name = "watchdog" },
-    { name = "zmq" },
 ]
 
 [[package]]
@@ -1526,6 +1457,77 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/d6/54/cfe61301667036ec958cb99bd3efefba235e65cdeb9c84d24a8293ba1d90/mdurl-0.1.2.tar.gz", hash = "sha256:bb413d29f5eea38f31dd4754dd7377d4465116fb207585f97bf925588687c1ba", size = 8729, upload-time = "2022-08-14T12:40:10.846Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/b3/38/89ba8ad64ae25be8de66a6d463314cf1eb366222074cfda9ee839c56a4b4/mdurl-0.1.2-py3-none-any.whl", hash = "sha256:84008a41e51615a49fc9966191ff91509e3c40b939176e643fd50a5c2196b8f8", size = 9979, upload-time = "2022-08-14T12:40:09.779Z" },
+]
+
+[[package]]
+name = "ml-cost-analysis"
+version = "0.1.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "aws-cdk-lib" },
+    { name = "bedrock-agentcore" },
+    { name = "bedrock-agentcore-starter-toolkit" },
+    { name = "boto3" },
+    { name = "botocore" },
+    { name = "constructs" },
+    { name = "deepagents" },
+    { name = "fuzzywuzzy" },
+    { name = "jsonschema" },
+    { name = "langchain" },
+    { name = "langchain-aws" },
+    { name = "langchain-community" },
+    { name = "langchain-core" },
+    { name = "langchain-openai" },
+    { name = "langgraph" },
+    { name = "langsmith" },
+    { name = "opensearch-py" },
+    { name = "opentelemetry-api" },
+    { name = "opentelemetry-instrumentation" },
+    { name = "pyjwt", extra = ["crypto"] },
+    { name = "python-dotenv" },
+    { name = "pyyaml" },
+    { name = "retrying" },
+    { name = "scikit-learn" },
+    { name = "strands-agents" },
+    { name = "strands-agents-tools" },
+    { name = "streamlit" },
+    { name = "tavily-python" },
+    { name = "watchdog" },
+    { name = "zmq" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "aws-cdk-lib" },
+    { name = "bedrock-agentcore" },
+    { name = "bedrock-agentcore-starter-toolkit" },
+    { name = "boto3" },
+    { name = "botocore" },
+    { name = "constructs" },
+    { name = "deepagents", specifier = ">=0.2.4" },
+    { name = "fuzzywuzzy" },
+    { name = "jsonschema" },
+    { name = "langchain" },
+    { name = "langchain-aws" },
+    { name = "langchain-community" },
+    { name = "langchain-core" },
+    { name = "langchain-openai", specifier = ">=1.0.1" },
+    { name = "langgraph" },
+    { name = "langsmith", specifier = ">=0.1.0" },
+    { name = "opensearch-py" },
+    { name = "opentelemetry-api" },
+    { name = "opentelemetry-instrumentation" },
+    { name = "pyjwt", extras = ["crypto"], specifier = ">=2.8.0" },
+    { name = "python-dotenv" },
+    { name = "pyyaml" },
+    { name = "retrying" },
+    { name = "scikit-learn" },
+    { name = "strands-agents" },
+    { name = "strands-agents-tools" },
+    { name = "streamlit" },
+    { name = "tavily-python", specifier = ">=0.7.12" },
+    { name = "watchdog" },
+    { name = "zmq" },
 ]
 
 [[package]]

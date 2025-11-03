@@ -1,10 +1,31 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
-name = "cost-analysis"
+name = "ml-cost-optimize"
 version = "0.1.0"
-description = "Add your description here"
+description = "AWS ML workload cost optimization agent powered by deep research agents"
 readme = "README.md"
 requires-python = ">=3.12"
+license = {text = "MIT"}
+authors = [
+    {name = "Your Name", email = "your.email@example.com"}
+]
+keywords = ["aws", "ml", "cost-optimization", "sagemaker", "bedrock", "cloudwatch"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: System :: Monitoring",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
 dependencies = [
+    "setuptools",
     "opensearch-py",
     "boto3",
     "botocore",
@@ -34,4 +55,29 @@ dependencies = [
     "langchain-openai>=1.0.1",
     "deepagents>=0.2.4",
     "tavily-python>=0.7.12",
+    "langsmith>=0.1.0",
 ]
+
+[project.optional-dependencies]
+dev = [
+    "ruff",
+    "mypy",
+    "bandit",
+    "pytest",
+    "pytest-cov",
+]
+
+[project.scripts]
+ml-cost-optimize = "ml_cost_analysis.__main__:main"
+
+[project.urls]
+Homepage = "https://github.com/yourusername/ml-cost-optimize"
+Documentation = "https://github.com/yourusername/ml-cost-optimize#readme"
+Repository = "https://github.com/yourusername/ml-cost-optimize"
+Issues = "https://github.com/yourusername/ml-cost-optimize/issues"
+
+[tool.setuptools]
+packages = ["ml_cost_analysis", "ml_cost_analysis.tools"]
+
+[tool.setuptools.package-data]
+ml_cost_analysis = ["config.yaml", "system_prompts/*.txt"]
