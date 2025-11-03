@@ -71,19 +71,7 @@ The agent requires the following AWS permissions:
 
 ## Installation
 
-### Option 1: Install from PyPI (Recommended)
-
-The easiest way to install the package:
-
-```bash
-# Install the package
-pip install ml-cost-optimize
-
-# Verify installation
-ml-cost-optimize --help
-```
-
-### Option 2: Install from Source
+### Option 1: Install from Source
 
 For development or to get the latest features:
 
@@ -99,7 +87,7 @@ pip install -e .
 pip install -e ".[dev]"
 ```
 
-### Option 3: Using uv (Alternative Package Manager)
+### Option 2: Using uv (Alternative Package Manager)
 
 ```bash
 # Install dependencies
