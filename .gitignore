@@ -8,3 +8,4 @@ wheels/
 
 # Virtual environments
 .venv
+ml_cost_analysis/.env
