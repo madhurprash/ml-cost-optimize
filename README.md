@@ -2,22 +2,6 @@
 
 A CLI-powered deep research agent that analyzes machine learning workload costs in your AWS account and provides optimization recommendations. Built with Claude 3.7 Sonnet (via Amazon Bedrock or OpenAI), the agent specializes in SageMaker training jobs, inference endpoints, Amazon Bedrock usage, and ML data storage optimization. It uses multiple tools including ML service monitoring, CloudWatch analysis, cost reporting, and internet search to perform comprehensive ML cost analysis across AWS accounts.
 
-## Quick Start
-
-Install the package and start analyzing your AWS ML costs in minutes:
-
-```bash
-# Install from PyPI
-pip install ml-cost-optimize
-
-# Set required environment variables
-export TAVILY_API_KEY=your_tavily_key
-export AWS_PROFILE=your_aws_profile
-
-# Run your first cost analysis
-ml-cost-optimize --query "Analyze my SageMaker costs and suggest optimizations"
-```
-
 ## Prerequisites
 
 - Python 3.12+
