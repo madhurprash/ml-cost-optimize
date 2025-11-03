@@ -89,7 +89,7 @@ For development or to get the latest features:
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/madhurprash/ml-cost-optimize.git
 cd cost-analysis
 
 # Install in editable mode
