@@ -7,7 +7,7 @@ name = "ml-cost-optimize"
 version = "0.1.0"
 description = "AWS ML workload cost optimization agent powered by deep research agents"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.11"
 license = {text = "MIT"}
 authors = [
     {name = "Madhur Prashant", email = "Madhur.prashant7@gmail.com"}
@@ -19,6 +19,7 @@ classifiers = [
     "Intended Audience :: System Administrators",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Topic :: System :: Monitoring",
     "Topic :: Software Development :: Libraries :: Python Modules",
@@ -34,7 +35,7 @@ dependencies = [
     "retrying",
     "strands-agents",
     "strands-agents-tools",
-    "langchain-core",
+    "langchain-core>=1.0.2,<2.0.0",
     "langchain-aws",
     "zmq",
     "aws-cdk-lib",
@@ -44,8 +45,8 @@ dependencies = [
     "bedrock-agentcore-starter-toolkit",
     "opentelemetry-instrumentation",
     "opentelemetry-api",
-    "langchain",
-    "langgraph",
+    "langchain>=1.0.2,<2.0.0",
+    "langgraph>=0.2.0",
     "fuzzywuzzy",
     "scikit-learn",
     "pyyaml",
