@@ -2,6 +2,8 @@
 
 A CLI-powered deep research agent that analyzes machine learning workload costs in your AWS account and provides optimization recommendations. Built with Claude 3.7 Sonnet (via Amazon Bedrock or OpenAI), the agent specializes in SageMaker training jobs, inference endpoints, Amazon Bedrock usage, and ML data storage optimization. It uses multiple tools including ML service monitoring, CloudWatch analysis, cost reporting, and internet search to perform comprehensive ML cost analysis across AWS accounts.
 
+View blog here: https://medium.com/@madhur.prashant7/building-long-running-deep-research-agents-architecture-attention-mechanisms-and-real-world-11f559614a9c
+
 ## Prerequisites
 
 - Python 3.12+
